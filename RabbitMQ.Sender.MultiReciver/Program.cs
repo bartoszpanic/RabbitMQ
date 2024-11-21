@@ -15,13 +15,15 @@ await channel.QueueDeclareAsync(queue: "RabbitMQ.MultiReciver1", durable: true, 
 await channel.QueueDeclareAsync(queue: "RabbitMQ.MultiReciver2", durable: true, exclusive: false, autoDelete: false, arguments: null);
 
 var message = string.Empty;
-while (string.IsNullOrWhiteSpace(message) || message == "exit")
+while (true)
 {
 	Console.WriteLine("Napisz exit aby wyjść");
 	Job job = new();
 
 	Console.WriteLine("Napisz query do wysłania");
 	message = Console.ReadLine();
+	if (message == "exit")
+		break;
 	job.Message = message;
 	Console.WriteLine("Wybierz gdzie ma wysłać query? 1 - SQL | 2 - CosmosDb");
 	message = Console.ReadLine();
@@ -47,6 +49,4 @@ while (string.IsNullOrWhiteSpace(message) || message == "exit")
 	Console.WriteLine("\tSend {0}", message);
 	Console.ForegroundColor = ConsoleColor.Gray;
 	Console.WriteLine("");
-
-	Console.ReadLine();
 }
