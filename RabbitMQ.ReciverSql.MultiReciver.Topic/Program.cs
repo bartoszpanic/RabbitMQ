@@ -14,7 +14,7 @@ using var channel = await connection.CreateChannelAsync();
 await channel.ExchangeDeclareAsync(exchange: "RabbitMQ.TopicExchange", type: ExchangeType.Topic);
 
 // Deklarowanie unikalnej kolejki dla konsumenta
-var queueName = await channel.QueueDeclareAsync(queue: "RabbitMQ.TopicQueue", durable: true, exclusive: false, autoDelete: false, arguments: null);
+var queueName = await channel.QueueDeclareAsync(queue: "RabbitMQ.TopicQueue.Sql", durable: true, exclusive: false, autoDelete: false, arguments: null);
 
 // Wiązanie kolejki z wymianą typu topic, aby odbierać tylko wiadomości typu SQL
 await channel.QueueBindAsync(queue: queueName, exchange: "RabbitMQ.TopicExchange", routingKey: "query.sql");
